@@ -1,0 +1,11 @@
+#title {
+  color: green;
+  text-align: center;
+  font-weight: bold;
+}
+
+#description {
+  color: red;
+  text-align: center;
+  font-style: italic;
+}

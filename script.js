@@ -1,55 +1,65 @@
 console.log("script.js is running...");
 
-let numberTag = document.querySelector("#number");
-let dropResult = document.querySelector("#drop-result");
-let meter = document.querySelector("#meter");
-let result = document.querySelector("#result");
+// variables of stuff
+const submitButton = document.getElementById("submit-button");
 
-const button = document.querySelector("#button");
-
-let initial_num = Number(numberTag.innerHTML)
-console.log(initial_num);
-
-function add_to_numberTag() {
-  let addend = document.forms["myForm"]["add"].value;
-  addend = Number(addend);
-  console.log(addend);
-
-  let sum = addend + initial_num;
-  numberTag.innerHTML = sum;
+// functions
+// returns average time til expiration for the item
+function avg_expiration(item) {
+  if (item == "apple") {
+    return 14; // 2 weeks
+  } // TODO: add more items
 }
 
-function show_dropdown_result() {
-  let selected_value = document.forms["myForm"]["dropdown"].value;
+// returns average consumption per day for a single person
+function avg_consumption(item) {
+  if (item == "apple") {
+    return 1; // An apple a day keeps the doctor away
+  } // TODO: add more items
+}
 
-  if (selected_value == "1") {
-    dropResult.innerHTML = "1 was selected";
-  } else if (selected_value == "2") {
-    dropResult.innerHTML = "2 was selected";
+// the big one
+function calculate_viability() {
+  let numberOfPeople = document.forms["info"]["number-of-people"].value;
+  let item = document.forms["info"]["item"].value;
+  let amountOfItem = document.forms["info"]["amount-of-item"].value;
+  numberOfPeople = Number(numberOfPeople);
+  amountOfItem = Number(amountOfItem);
+
+  console.log("ppl: " + numberOfPeople);
+  console.log("itm: " + item);
+  console.log("amt: " + amountOfItem);
+
+  let expiration = avg_expiration(item);
+  let consumption = avg_consumption(item);
+
+  // Time to do some math
+  itemPerPerson = amountOfItem / numberOfPeople;
+  itemPerDay = itemPerPerson / expiration;
+  roundedItemPerDay = Math.ceil(itemPerDay);
+
+  // printing stuff to console
+  console.log("item per person: " + itemPerPerson);
+  console.log("item per day: " + itemPerDay);
+  console.log("average time til exp: " + expiration);
+  console.log("average consumption per day: " + consumption);
+  console.log("rounded item per day: " + roundedItemPerDay);
+
+  // If person eats less than or equal to average consumption per day by expiration date, GREEN
+  if (0 < itemPerDay && itemPerDay <= consumption) {
+    console.log("viability: GREEN");
+  }
+  // If person eats less than double average consumption per day by expiration date, YELLOW
+  else if (itemPerDay <= (2*consumption)) {
+    console.log("viability: YELLOW");
+  }
+  // Person eats more than double average consumption per day by expiration date, RED
+  else {
+    console.log("viability: RED");
   }
 }
 
-function color_meter() {
-  let addend = document.forms["myForm"]["add"].value;
-  let selected_value = document.forms["myForm"]["dropdown"].value;
-
-  let num = addend / selected_value;
-  console.log(num)
-
-  result.innerHTML = num;
-
-  if (num < 10) {
-    meter.style.backgroundColor = "red";
-  } else if (num >= 20) {
-    meter.style.backgroundColor = "green";
-  } else {
-    meter.style.backgroundColor = "yellow";
-  }
-}
-
-button.addEventListener('click', e => {
-  console.log("button clicked");
-  add_to_numberTag();
-  show_dropdown_result();
-  color_meter();
+// Does the thing when "Submit" is clicked
+submitButton.addEventListener('click', e => {
+  calculate_viability();
 });

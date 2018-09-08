@@ -1,44 +1,55 @@
+<!-- FOOD PLAN
+Food planner web application
+TODO: add more options for items
+TODO: show results and message in browser
+-->
+
 <!DOCTYPE html>
 
-<html lang="en" dir="ltr">
+<html>
 
 <head>
-	<meta charset="utf-8">
-	<title>Food Plan</title>
-	<link rel="stylesheet" href="style.css">
+  <title>FLAN - Food Plan</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" src="style.css">
 </head>
 
 <body>
-	<h1 id="title">FLAN</h1>
-	<h3 id="description">Plan out your grocery trip so you don't waste food!</h3>
+  <h1>Food Plan - FLAN</h1>
 
-	<form name="myForm">
-    Enter a number and choose a value <br>
-		<input name="add" type="text">
-    <select name="dropdown">
-      <option value="1">1</option>
+  <form name = "info">
+    <label id="ppl-num">How many people are you buying groceries for?</label> <br>
+    <select name="number-of-people">
+      <option value="1" autoselect>1</option>
       <option value="2">2</option>
-    </select>
-	</form>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+    </select> <br>
 
-  <div id="button">
-    <h1>Click Me!</h1>
+    <label id="itm">What item are you planning to buy?</label> <br>
+    <select name="item">
+      <option value="apple">Apples</option>
+      <!--TODO: Add more items-->
+    </select> <br>
+
+    <label id="itm-amt">How much are you buying?</label> <br>
+    <input name="amount-of-item">
+
+  </form>
+
+  <div id="submit-button">Submit</div>
+
+  <hr>
+
   <div>
-
-  <p>This should show what number you entered</p>
-	<h1 id="number">0</h1>
-
-  <p>This should show a message based on what value you selected</p>
-  <h2 id="drop-result"></h2>
-
-  <p>Divide typed value by selected value</p>
-  <p>Less than 10 = RED. Greater than 20 = GREEN. Else YELLOW.</p>
-  <div id="meter">
-    <h1 id="result">METER</h1>
+    <div id="result">result</div>
+    <div id="message">message</div>
   </div>
 
 </body>
 
-</html>
-
 <script src="script.js"></script>
+
+</html>
