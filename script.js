@@ -2,6 +2,15 @@ console.log("script.js is running...");
 
 // variables of stuff
 const submitButton = document.getElementById("submit-button");
+let meterDiv = document.getElementById("meter");
+let messageDiv = document.getElementById("message");
+
+// messages for items. 0 is GREEN msg. 1 is YELLOW msg. 2 is RED msg.
+const msgs = [
+    "There is no way your food will expire before you consume it. Buy away!",
+    "Consider how much you will eat. Better to be cautious and take an extra grocery trip later than to waste food.",
+    "There is a good chance some will be wasted. Buy less!"
+    ];
 
 // functions
 // returns average time til expiration for the item
@@ -48,15 +57,23 @@ function calculate_viability() {
   // If person eats less than or equal to average consumption per day by expiration date, GREEN
   if (0 < itemPerDay && itemPerDay <= consumption) {
     console.log("viability: GREEN");
+    set_meter("green", msgs[0]);
   }
   // If person eats less than double average consumption per day by expiration date, YELLOW
   else if (itemPerDay <= (2*consumption)) {
     console.log("viability: YELLOW");
+    set_meter("yellow", msgs[1]);
   }
   // Person eats more than double average consumption per day by expiration date, RED
   else {
     console.log("viability: RED");
+    set_meter("red", msgs[2]);
   }
+}
+
+function set_meter(color, message) {
+  meterDiv.style.background = color;
+  messageDiv.innerHTML = message;
 }
 
 // Does the thing when "Submit" is clicked
